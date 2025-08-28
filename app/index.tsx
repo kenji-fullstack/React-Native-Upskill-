@@ -6,7 +6,7 @@ const App = () => {
     <ScrollView>
       <Text
         style={{
-          fontSize: 24,
+          fontSize: 30,
           fontWeight: "bold",
           textAlign: "center",
           marginVertical: 20,
