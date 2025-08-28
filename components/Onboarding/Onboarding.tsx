@@ -38,8 +38,8 @@ export default function Onboarding({ onGetStarted }: { onGetStarted: () => void 
       {/* Header Image */}
       <Image
         source={onboardingData[index].image}
-        className="h-[309px] w-full"
-        style={{ height: 309, opacity: 1, top: 24 }}
+        className="h-[423px] w-full"
+        style={{ height: 423, opacity: 1, top: 24 }}
         resizeMode="cover"
       />
 
@@ -49,7 +49,7 @@ export default function Onboarding({ onGetStarted }: { onGetStarted: () => void 
         style={{
           width: '100%',
           height: 340,
-          top: 276,
+          top: 400,
           borderTopLeftRadius: 32,
           borderTopRightRadius: 32,
         }}>
