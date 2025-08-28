@@ -31,7 +31,7 @@ const App = () => {
       </View>
       <TextInput
         style={{
-          width: "80%",
+          width: "50%",
           height: 40,
           borderColor: "gray",
           borderWidth: 1,
