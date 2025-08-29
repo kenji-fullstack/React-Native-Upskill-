@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
 import {
   LockClosedIcon,
   EyeIcon,
@@ -7,6 +7,9 @@ import {
   ArrowLeftIcon,
 } from 'react-native-heroicons/outline';
 
+const { height: screenHeight } = Dimensions.get('window');
+
+// Set Password Screen Component
 export default function SetPasswordScreen({
   onBack,
   onSetPassword,
@@ -22,39 +25,58 @@ export default function SetPasswordScreen({
   return (
     <View className="flex-1 bg-white">
       {/* Header */}
-      <View className="flex-row items-center px-6 pb-4 pt-20">
+      <View className="flex-row items-center px-6 pb-6 pt-16">
         <TouchableOpacity onPress={onBack}>
-          <ArrowLeftIcon size={24} color="#222" className="mr-2" />
+          <ArrowLeftIcon size={24} color="#222" />
         </TouchableOpacity>
-        <Text className="ml-1 text-xl font-bold">Set Password</Text>
+        <Text
+          className="ml-4 text-[#222222]"
+          style={{
+            fontSize: 18,
+            fontWeight: '600',
+          }}>
+          Set Password
+        </Text>
       </View>
 
-      {/* Center Content */}
-      <View className="flex-1 justify-center px-6">
-        <View className="mb-4 items-center">
+      {/* Content Container */}
+      <View className="flex-1 px-6">
+        {/* Image */}
+        <View className="mb-8 items-center" style={{ marginTop: screenHeight * 0.1 }}>
           <Image
             source={require('../../assets/images/ForgotPassword.png')}
-            className="h-[140px] w-[180px]"
+            className="h-[144.77] w-[179.05]"
             resizeMode="contain"
           />
         </View>
 
-        <Text className="mb-6 text-center text-base text-[#222]">
+        {/* Description */}
+        <Text
+          className="mb-8 text-center text-[#222222]"
+          style={{
+            fontSize: 16,
+            fontWeight: '400',
+            lineHeight: 24,
+          }}>
           Please enter a new password, it must be{'\n'}changed with your previous one
         </Text>
 
-        {/* New Password */}
-        <View className="mb-4 flex-row items-center rounded-lg border border-[#E0E0E0] bg-[#F8F8F8] px-3">
+        {/* New Password Input */}
+        <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
           <LockClosedIcon size={20} color="#BDBDBD" />
           <TextInput
-            className="ml-2 flex-1 py-3 text-base"
+            className="ml-3 flex-1 text-base text-[#222222]"
             placeholder="New Password"
             placeholderTextColor="#BDBDBD"
             secureTextEntry={!showPassword}
             value={password}
             onChangeText={setPassword}
+            style={{
+              paddingVertical: 16,
+              fontSize: 16,
+            }}
           />
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)} className="p-1">
             {showPassword ? (
               <EyeSlashIcon size={20} color="#BDBDBD" />
             ) : (
@@ -63,18 +85,22 @@ export default function SetPasswordScreen({
           </TouchableOpacity>
         </View>
 
-        {/* Confirm Password */}
-        <View className="mb-4 flex-row items-center rounded-lg border border-[#E0E0E0] bg-[#F8F8F8] px-3">
+        {/* Confirm Password Input */}
+        <View className="mb-8 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
           <LockClosedIcon size={20} color="#BDBDBD" />
           <TextInput
-            className="ml-2 flex-1 py-3 text-base"
+            className="ml-3 flex-1 text-base text-[#222222]"
             placeholder="Confirm Password"
             placeholderTextColor="#BDBDBD"
             secureTextEntry={!showConfirm}
             value={confirm}
             onChangeText={setConfirm}
+            style={{
+              paddingVertical: 16,
+              fontSize: 16,
+            }}
           />
-          <TouchableOpacity onPress={() => setShowConfirm(!showConfirm)}>
+          <TouchableOpacity onPress={() => setShowConfirm(!showConfirm)} className="p-1">
             {showConfirm ? (
               <EyeSlashIcon size={20} color="#BDBDBD" />
             ) : (
@@ -82,12 +108,24 @@ export default function SetPasswordScreen({
             )}
           </TouchableOpacity>
         </View>
-      </View>
 
-      {/* Set Password Button at Bottom */}
-      <View className="px-6 pb-8">
-        <TouchableOpacity className="rounded-lg bg-[#E36255] py-3" onPress={onSetPassword}>
-          <Text className="text-center text-base font-bold text-white">Set Password</Text>
+        {/* Spacer */}
+        <View className="flex-1" />
+
+        {/* Set Password Button */}
+        <TouchableOpacity
+          className="mb-8 rounded-lg bg-[#E36255]"
+          style={{ paddingVertical: 16 }}
+          onPress={onSetPassword}
+          activeOpacity={0.8}>
+          <Text
+            className="text-center text-white"
+            style={{
+              fontSize: 16,
+              fontWeight: '600',
+            }}>
+            Set Password
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
