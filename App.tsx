@@ -6,6 +6,7 @@ import ForgotPasswordVerificationScreen from 'components/Login/ForgotPasswordVer
 import SetPasswordScreen from 'components/Login/SetPasswordScreen';
 
 import SignupStep1 from 'components/SignUp/SignupStep1';
+import SignupStep2 from 'components/SignUp/SignupStep2';
 import { StatusBar } from 'expo-status-bar';
 
 import './global.css';

@@ -8,7 +8,8 @@ import {
   EnvelopeIcon,
   LockClosedIcon,
   CameraIcon,
-} from 'react-native-heroicons/outline';
+  ArrowRightIcon,
+} from 'react-native-heroicons/solid';
 
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -42,8 +43,8 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
 
           {/* Step 2 - Inactive */}
           <View className="flex-1 items-center">
-            <View className="mb-2 h-8 w-8 items-center justify-center rounded-full bg-[#E0E0E0]">
-              <Text className="text-sm font-semibold text-[#BDBDBD]">2</Text>
+            <View className="mb-2 h-8 w-8 items-center justify-center rounded-full rounded-full border border-[#E7AE40] bg-[#FFF]">
+              <Text className="text-sm font-semibold text-[#000]">2</Text>
             </View>
             <Text className="text-center text-xs font-medium text-[#BDBDBD]">
               Subscription{'\n'}Plans
@@ -55,8 +56,8 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
 
           {/* Step 3 - Inactive */}
           <View className="flex-1 items-center">
-            <View className="mb-2 h-8 w-8 items-center justify-center rounded-full bg-[#E0E0E0]">
-              <Text className="text-sm font-semibold text-[#BDBDBD]">3</Text>
+            <View className="mb-2 h-8 w-8 items-center justify-center rounded-full rounded-full border border-[#E7AE40] bg-[#FFF]">
+              <Text className="text-sm font-semibold text-[#000]">3</Text>
             </View>
             <Text className="text-center text-xs font-medium text-[#BDBDBD]">
               Payment{'\n'}Details
@@ -84,15 +85,15 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
           <View className="h-24 w-24 items-center justify-center rounded-full border-2 border-dashed border-[#E0E0E0] bg-[#F5F5F5]">
             <CameraIcon size={32} color="#BDBDBD" />
           </View>
-          <Text className="mt-2 text-center text-[#666666]" style={{ fontSize: 14 }}>
+          {/* <Text className="mt-2 text-center text-[#666666]" style={{ fontSize: 14 }}>
             Upload{'\n'}Photo
-          </Text>
+          </Text> */}
         </View>
 
         {/* Form Fields */}
         <View className="space-y-4">
           {/* Name */}
-          <View className="flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
+          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
             <UserIcon size={20} color="#BDBDBD" />
             <TextInput
               className="ml-3 flex-1 text-base text-[#222222]"
@@ -105,7 +106,7 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
           </View>
 
           {/* Phone Number */}
-          <View className="flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
+          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
             <PhoneIcon size={20} color="#BDBDBD" />
             <TextInput
               className="ml-3 flex-1 text-base text-[#222222]"
@@ -119,7 +120,7 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
           </View>
 
           {/* Email */}
-          <View className="flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
+          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
             <EnvelopeIcon size={20} color="#BDBDBD" />
             <TextInput
               className="ml-3 flex-1 text-base text-[#222222]"
@@ -133,7 +134,7 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
           </View>
 
           {/* Password */}
-          <View className="flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
+          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
             <LockClosedIcon size={20} color="#BDBDBD" />
             <TextInput
               className="ml-3 flex-1 text-base text-[#222222]"
@@ -154,7 +155,7 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
           </View>
 
           {/* Secret Pin */}
-          <View className="flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
+          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
             <LockClosedIcon size={20} color="#BDBDBD" />
             <TextInput
               className="ml-3 flex-1 text-base text-[#222222]"
@@ -189,7 +190,9 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
           <Text className="mr-2 text-white" style={{ fontSize: 16, fontWeight: '600' }}>
             Next
           </Text>
-          <View className="h-4 w-4 rotate-45 border-b-2 border-r-2 border-white" />
+          <TouchableOpacity>
+            <ArrowRightIcon size={24} color="#ffffffff" />
+          </TouchableOpacity>
         </TouchableOpacity>
       </View>
     </View>
