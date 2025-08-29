@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
-import { ArrowLeftIcon, PhoneIcon } from 'react-native-heroicons/outline';
+import { ArrowLeftIcon, PhoneIcon } from 'react-native-heroicons/solid';
 
 const { height: screenHeight } = Dimensions.get('window');
 

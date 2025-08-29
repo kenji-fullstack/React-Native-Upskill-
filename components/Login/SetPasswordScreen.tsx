@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
-import {
-  LockClosedIcon,
-  EyeIcon,
-  EyeSlashIcon,
-  ArrowLeftIcon,
-} from 'react-native-heroicons/outline';
+import { LockClosedIcon, EyeIcon, EyeSlashIcon, ArrowLeftIcon } from 'react-native-heroicons/solid';
 
 const { height: screenHeight } = Dimensions.get('window');
 

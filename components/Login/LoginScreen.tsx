@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
-import { EyeIcon, EyeSlashIcon, PhoneIcon, LockClosedIcon } from 'react-native-heroicons/outline';
+import { EyeIcon, EyeSlashIcon, PhoneIcon, LockClosedIcon } from 'react-native-heroicons/solid';
 
 const { height: screenHeight } = Dimensions.get('window');
 
 // Login Screen Component
-export default function LoginScreen({ onForgotPassword }: { onForgotPassword: () => void }) {
+export default function LoginScreen({
+  onForgotPassword,
+  onSignup,
+}: {
+  onForgotPassword: () => void;
+  onSignup: () => void;
+}) {
   const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -119,7 +125,7 @@ export default function LoginScreen({ onForgotPassword }: { onForgotPassword: ()
             <Text className="text-[#666666]" style={{ fontSize: 14, fontWeight: '400' }}>
               Don`t have an account?{' '}
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onSignup}>
               <Text
                 className="text-[#3366FF]"
                 style={{
