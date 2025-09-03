@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  BackHandler,
+} from 'react-native';
 import {
   EyeIcon,
   EyeSlashIcon,
@@ -10,11 +16,16 @@ import {
   CameraIcon,
   ArrowRightIcon,
 } from 'react-native-heroicons/solid';
+import SignupProgressSteps from './SignupProgressSteps';
+import FormInput from './FormInput';
 
-const { height: screenHeight } = Dimensions.get('window');
-
-// SignupStep1.tsx
-export default function SignupStep1({ onNext }: { onNext: () => void }) {
+export default function SignupStep1({
+  onNext,
+  onBack
+}: {
+  onNext: () => void;
+  onBack?: () => void;
+}) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -23,48 +34,28 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showPin, setShowPin] = useState(false);
 
+  // Handle Android back button
+  useEffect(() => {
+    const backAction = () => {
+      if (onBack) {
+        onBack();
+        return true;
+      }
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () => backHandler.remove();
+  }, [onBack]);
+
   return (
-    <View className="flex-1 bg-white">
+    <ScrollView
+      className="flex-1"
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
+    >
       {/* Progress Steps */}
-      <View className="px-6 pb-6 pt-16">
-        <View className="mb-6 flex-row items-center justify-between">
-          {/* Step 1 - Active */}
-          <View className="flex-1 items-center">
-            <View className="mb-2 h-8 w-8 items-center justify-center rounded-full bg-[#E36255]">
-              <Text className="text-sm font-semibold text-white">1</Text>
-            </View>
-            <Text className="text-center text-xs font-medium text-[#222222]">
-              Personal{'\n'}Information
-            </Text>
-          </View>
-
-          {/* Connector Line */}
-          <View className="mx-2 h-0.5 flex-1 bg-[#E0E0E0]" />
-
-          {/* Step 2 - Inactive */}
-          <View className="flex-1 items-center">
-            <View className="mb-2 h-8 w-8 items-center justify-center rounded-full rounded-full border border-[#E7AE40] bg-[#FFF]">
-              <Text className="text-sm font-semibold text-[#000]">2</Text>
-            </View>
-            <Text className="text-center text-xs font-medium text-[#BDBDBD]">
-              Subscription{'\n'}Plans
-            </Text>
-          </View>
-
-          {/* Connector Line */}
-          <View className="mx-2 h-0.5 flex-1 bg-[#E0E0E0]" />
-
-          {/* Step 3 - Inactive */}
-          <View className="flex-1 items-center">
-            <View className="mb-2 h-8 w-8 items-center justify-center rounded-full rounded-full border border-[#E7AE40] bg-[#FFF]">
-              <Text className="text-sm font-semibold text-[#000]">3</Text>
-            </View>
-            <Text className="text-center text-xs font-medium text-[#BDBDBD]">
-              Payment{'\n'}Details
-            </Text>
-          </View>
-        </View>
-      </View>
+      <SignupProgressSteps currentStep={1} />
 
       {/* Content */}
       <View className="flex-1 px-6">
@@ -81,120 +72,110 @@ export default function SignupStep1({ onNext }: { onNext: () => void }) {
         </Text>
 
         {/* Upload Photo */}
-        <View className="mb-8 items-center">
+        <TouchableOpacity
+          className="mb-8 items-center"
+          accessibilityLabel="Upload profile photo"
+          accessibilityHint="Tap to select a photo from your device"
+        >
           <View className="h-24 w-24 items-center justify-center rounded-full border-2 border-dashed border-[#E0E0E0] bg-[#F5F5F5]">
             <CameraIcon size={32} color="#BDBDBD" />
           </View>
-          {/* <Text className="mt-2 text-center text-[#666666]" style={{ fontSize: 14 }}>
-            Upload{'\n'}Photo
-          </Text> */}
-        </View>
+        </TouchableOpacity>
 
         {/* Form Fields */}
         <View className="space-y-4">
           {/* Name */}
-          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
-            <UserIcon size={20} color="#BDBDBD" />
-            <TextInput
-              className="ml-3 flex-1 text-base text-[#222222]"
-              placeholder="Name"
-              placeholderTextColor="#BDBDBD"
-              value={name}
-              onChangeText={setName}
-              style={{ paddingVertical: 16, fontSize: 16 }}
-            />
-          </View>
+          <FormInput
+            icon={<UserIcon size={20} color="#BDBDBD" />}
+            placeholder="Name"
+            value={name}
+            onChangeText={setName}
+            accessibilityLabel="Name input"
+            autoCapitalize="words"
+            returnKeyType="next"
+          />
 
           {/* Phone Number */}
-          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
-            <PhoneIcon size={20} color="#BDBDBD" />
-            <TextInput
-              className="ml-3 flex-1 text-base text-[#222222]"
-              placeholder="Phone Number"
-              placeholderTextColor="#BDBDBD"
-              keyboardType="phone-pad"
-              value={phone}
-              onChangeText={setPhone}
-              style={{ paddingVertical: 16, fontSize: 16 }}
-            />
-          </View>
+          <FormInput
+            icon={<PhoneIcon size={20} color="#BDBDBD" />}
+            placeholder="Phone Number"
+            keyboardType="phone-pad"
+            value={phone}
+            onChangeText={setPhone}
+            accessibilityLabel="Phone number input"
+            returnKeyType="next"
+          />
 
           {/* Email */}
-          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
-            <EnvelopeIcon size={20} color="#BDBDBD" />
-            <TextInput
-              className="ml-3 flex-1 text-base text-[#222222]"
-              placeholder="Email"
-              placeholderTextColor="#BDBDBD"
-              keyboardType="email-address"
-              value={email}
-              onChangeText={setEmail}
-              style={{ paddingVertical: 16, fontSize: 16 }}
-            />
-          </View>
+          <FormInput
+            icon={<EnvelopeIcon size={20} color="#BDBDBD" />}
+            placeholder="Email"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
+            accessibilityLabel="Email input"
+            returnKeyType="next"
+          />
 
           {/* Password */}
-          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
-            <LockClosedIcon size={20} color="#BDBDBD" />
-            <TextInput
-              className="ml-3 flex-1 text-base text-[#222222]"
-              placeholder="Password"
-              placeholderTextColor="#BDBDBD"
-              secureTextEntry={!showPassword}
-              value={password}
-              onChangeText={setPassword}
-              style={{ paddingVertical: 16, fontSize: 16 }}
-            />
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)} className="p-1">
-              {showPassword ? (
+          <FormInput
+            icon={<LockClosedIcon size={20} color="#BDBDBD" />}
+            placeholder="Password"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
+            accessibilityLabel="Password input"
+            returnKeyType="next"
+            rightIcon={
+              showPassword ? (
                 <EyeSlashIcon size={20} color="#BDBDBD" />
               ) : (
                 <EyeIcon size={20} color="#BDBDBD" />
-              )}
-            </TouchableOpacity>
-          </View>
+              )
+            }
+            onRightIconPress={() => setShowPassword(!showPassword)}
+            rightIconLabel={showPassword ? "Hide password" : "Show password"}
+          />
 
           {/* Secret Pin */}
-          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
-            <LockClosedIcon size={20} color="#BDBDBD" />
-            <TextInput
-              className="ml-3 flex-1 text-base text-[#222222]"
-              placeholder="Secret Pin"
-              placeholderTextColor="#BDBDBD"
-              secureTextEntry={!showPin}
-              keyboardType="numeric"
-              maxLength={4}
-              value={secretPin}
-              onChangeText={setSecretPin}
-              style={{ paddingVertical: 16, fontSize: 16 }}
-            />
-            <TouchableOpacity onPress={() => setShowPin(!showPin)} className="p-1">
-              {showPin ? (
+          <FormInput
+            icon={<LockClosedIcon size={20} color="#BDBDBD" />}
+            placeholder="Secret Pin"
+            secureTextEntry={!showPin}
+            keyboardType="numeric"
+            maxLength={4}
+            value={secretPin}
+            onChangeText={setSecretPin}
+            accessibilityLabel="Secret pin input"
+            returnKeyType="done"
+            rightIcon={
+              showPin ? (
                 <EyeSlashIcon size={20} color="#BDBDBD" />
               ) : (
                 <EyeIcon size={20} color="#BDBDBD" />
-              )}
-            </TouchableOpacity>
-          </View>
+              )
+            }
+            onRightIconPress={() => setShowPin(!showPin)}
+            rightIconLabel={showPin ? "Hide pin" : "Show pin"}
+          />
         </View>
-
-        {/* Spacer */}
-        <View className="flex-1" />
 
         {/* Next Button */}
         <TouchableOpacity
-          className="mb-8 flex-row items-center justify-center rounded-lg bg-[#E36255]"
+          className="mt-8 mb-8 flex-row items-center justify-center rounded-lg bg-[#E36255]"
           style={{ paddingVertical: 16 }}
           onPress={onNext}
-          activeOpacity={0.8}>
+          activeOpacity={0.8}
+          accessibilityLabel="Continue to next step"
+          accessibilityRole="button"
+        >
           <Text className="mr-2 text-white" style={{ fontSize: 16, fontWeight: '600' }}>
             Next
           </Text>
-          <TouchableOpacity>
-            <ArrowRightIcon size={24} color="#ffffffff" />
-          </TouchableOpacity>
+          <ArrowRightIcon size={20} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }

@@ -8,9 +8,11 @@ const { height: screenHeight } = Dimensions.get('window');
 export default function LoginScreen({
   onForgotPassword,
   onSignup,
+  onLogin,
 }: {
   onForgotPassword: () => void;
   onSignup: () => void;
+  onLogin: () => void;
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState('');
@@ -109,7 +111,8 @@ export default function LoginScreen({
           <TouchableOpacity
             className="mb-4 rounded-lg bg-[#E36255]"
             style={{ paddingVertical: 16 }}
-            activeOpacity={0.8}>
+            activeOpacity={0.8}
+            onPress={onLogin}>
             <Text
               className="text-center text-white"
               style={{
