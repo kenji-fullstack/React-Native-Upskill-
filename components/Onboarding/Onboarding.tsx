@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { ArrowRightIcon } from 'react-native-heroicons/solid';
+
+import { Button, Container } from '../ui';
 
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -36,7 +39,7 @@ export default function Onboarding({ onGetStarted }: { onGetStarted: () => void 
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <Container safeArea={false} className="bg-white">
       {/* Header Image Container */}
       <View
         className="relative"
@@ -108,41 +111,23 @@ export default function Onboarding({ onGetStarted }: { onGetStarted: () => void 
                   </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                  className="flex-row items-center rounded-lg bg-[#E36255] px-8 py-3"
+                <Button
+                  title="Next"
                   onPress={handleNext}
-                  activeOpacity={0.8}
-                  style={{ minWidth: 100 }}>
-                  <Text
-                    className="mr-2 text-white"
-                    style={{
-                      fontSize: 16,
-                      fontWeight: '600',
-                    }}>
-                    Next
-                  </Text>
-                  {/* <View className="h-4 w-4 translate-x-0.5 rotate-45 transform border-b-2 border-r-2 border-white" />  */}
-                  {/* Arrow Icon */}
-                </TouchableOpacity>
+                  rightIcon={<ArrowRightIcon size={16} color="#FFFFFF" />}
+                  className="px-8"
+                />
               </View>
             ) : (
-              <TouchableOpacity
-                className="w-full rounded-lg bg-[#E36255] py-4"
+              <Button
+                title="Get Started"
                 onPress={onGetStarted}
-                activeOpacity={0.8}>
-                <Text
-                  className="text-center text-white"
-                  style={{
-                    fontSize: 16,
-                    fontWeight: '600',
-                  }}>
-                  Get Started
-                </Text>
-              </TouchableOpacity>
+                fullWidth
+              />
             )}
           </View>
         </View>
       </View>
-    </View>
+    </Container>
   );
 }

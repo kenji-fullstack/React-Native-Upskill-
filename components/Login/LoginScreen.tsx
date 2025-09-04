@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { EyeIcon, EyeSlashIcon, PhoneIcon, LockClosedIcon } from 'react-native-heroicons/solid';
+
+import { Button, Input } from '../ui';
 
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -51,45 +53,27 @@ export default function LoginScreen({
         {/* Form Fields */}
         <View className="flex-1">
           {/* Phone Input */}
-          <View className="mb-4 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
-            <PhoneIcon size={20} color="#BDBDBD" />
-            <TextInput
-              className="ml-3 flex-1 text-base text-[#222222]"
-              placeholder="Phone Number"
-              placeholderTextColor="#BDBDBD"
-              keyboardType="phone-pad"
-              value={phone}
-              onChangeText={setPhone}
-              style={{
-                paddingVertical: 16,
-                fontSize: 16,
-              }}
-            />
-          </View>
+          <Input
+            leftIcon={<PhoneIcon size={20} color="#BDBDBD" />}
+            placeholder="Phone Number"
+            keyboardType="phone-pad"
+            value={phone}
+            onChangeText={setPhone}
+            containerClassName="mb-4"
+          />
 
           {/* Password Input */}
-          <View className="mb-3 flex-row items-center rounded-lg border border-[#E5E5E5] bg-white px-4 py-1">
-            <LockClosedIcon size={20} color="#BDBDBD" />
-            <TextInput
-              className="ml-3 flex-1 text-base text-[#222222]"
-              placeholder="Password"
-              placeholderTextColor="#BDBDBD"
-              secureTextEntry={!showPassword}
-              value={password}
-              onChangeText={setPassword}
-              style={{
-                paddingVertical: 16,
-                fontSize: 16,
-              }}
-            />
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)} className="p-1">
-              {showPassword ? (
-                <EyeSlashIcon size={20} color="#BDBDBD" />
-              ) : (
-                <EyeIcon size={20} color="#BDBDBD" />
-              )}
-            </TouchableOpacity>
-          </View>
+          <Input
+            leftIcon={<LockClosedIcon size={20} color="#BDBDBD" />}
+            placeholder="Password"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
+            rightIcon={showPassword ? <EyeSlashIcon size={20} color="#BDBDBD" /> : <EyeIcon size={20} color="#BDBDBD" />}
+            onRightIconPress={() => setShowPassword(!showPassword)}
+            rightIconLabel={showPassword ? "Hide password" : "Show password"}
+            containerClassName="mb-3"
+          />
 
           {/* Forgot Password */}
           <TouchableOpacity className="mb-8 self-end" onPress={onForgotPassword}>
@@ -108,20 +92,12 @@ export default function LoginScreen({
           <View className="flex-1" />
 
           {/* Login Button */}
-          <TouchableOpacity
-            className="mb-4 rounded-lg bg-[#E36255]"
-            style={{ paddingVertical: 16 }}
-            activeOpacity={0.8}
-            onPress={onLogin}>
-            <Text
-              className="text-center text-white"
-              style={{
-                fontSize: 16,
-                fontWeight: '600',
-              }}>
-              Login
-            </Text>
-          </TouchableOpacity>
+          <Button
+            title="Login"
+            onPress={onLogin}
+            fullWidth
+            className="mb-4"
+          />
 
           {/* Signup Link */}
           <View className="flex-row justify-center">
