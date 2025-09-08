@@ -16,9 +16,17 @@ import './global.css';
 
 export default function App() {
   const [screen, setScreen] = useState<
-    'onboarding' | 'login' | 'forgot' | 'verify' | 'setpassword' | 'signup' | 'signup2' | 'signup3' | 'home'
+    | 'onboarding'
+    | 'login'
+    | 'forgot'
+    | 'verify'
+    | 'setpassword'
+    | 'signup'
+    | 'signup2'
+    | 'signup3'
+    | 'home'
   >('onboarding');
-  
+
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   return (
@@ -32,24 +40,15 @@ export default function App() {
         />
       )}
       {screen === 'signup' && (
-        <SignupStep1 
-          onNext={() => setScreen('signup2')} 
-          onBack={() => setScreen('login')}
-        />
+        <SignupStep1 onNext={() => setScreen('signup2')} onBack={() => setScreen('login')} />
       )}
       {screen === 'signup2' && (
-        <SignupStep2
-          onNext={() => setScreen('signup3')}
-          onBack={() => setScreen('signup')}
-        />
+        <SignupStep2 onNext={() => setScreen('signup3')} onBack={() => setScreen('signup')} />
       )}
       {screen === 'signup3' && (
-        <SignupStep3
-          onNext={() => setShowSuccessModal(true)}
-          onBack={() => setScreen('signup2')}
-        />
+        <SignupStep3 onNext={() => setShowSuccessModal(true)} onBack={() => setScreen('signup2')} />
       )}
-      
+
       {/* Success Modal - can appear over any screen */}
       <SignupSuccess
         visible={showSuccessModal}
@@ -59,7 +58,7 @@ export default function App() {
         }}
         onBack={() => setShowSuccessModal(false)}
       />
-      {screen === 'home' && <HomeNavigator />}
+      {screen === 'home' && <HomeNavigator onLogout={() => setScreen('login')} />}
       {screen === 'forgot' && (
         <ForgotPasswordScreen
           onBack={() => setScreen('login')}

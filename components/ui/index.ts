@@ -5,7 +5,7 @@ export { default as Header } from './Header';
 export { default as Modal } from './Modal';
 export { default as Avatar } from './Avatar';
 export { default as Card } from './Card';
-export { default as CountdownCircle } from './CountdownCircle';
+// export { default as CountdownCircle } from './CountdownCircle';
 export { default as ProgressSteps } from './ProgressSteps';
 
 // Layout Components
